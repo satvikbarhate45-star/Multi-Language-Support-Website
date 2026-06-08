@@ -1,0 +1,119 @@
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "Language Switcher" %}</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, sans-serif;
+        }
+
+        body{
+            background:#f4f6f9;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            min-height:100vh;
+        }
+
+        .container{
+            background:#fff;
+            padding:40px;
+            border-radius:15px;
+            box-shadow:0 0 20px rgba(0,0,0,0.1);
+            text-align:center;
+            width:600px;
+        }
+
+        h1{
+            color:#007bff;
+            margin-bottom:20px;
+        }
+
+        p{
+            margin-bottom:20px;
+            font-size:18px;
+            color:#555;
+        }
+
+        form{
+            margin-bottom:25px;
+        }
+
+        select{
+            padding:10px;
+            width:180px;
+            border:1px solid #ccc;
+            border-radius:5px;
+            font-size:16px;
+        }
+
+        button{
+            padding:10px 20px;
+            background:#007bff;
+            color:white;
+            border:none;
+            border-radius:5px;
+            cursor:pointer;
+            margin-left:10px;
+        }
+
+        button:hover{
+            background:#0056b3;
+        }
+
+        .info{
+            margin-top:20px;
+            padding:15px;
+            background:#f8f9fa;
+            border-radius:10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+<h3>Current Language: {{ LANGUAGE_CODE }}</h3>
+    <h1>{% trans "Welcome to Django Multi Language Website" %}</h1>
+
+    <p>{% trans "Choose your preferred language below." %}</p>
+
+    <form action="{% url 'set_language' %}" method="post">
+        {% csrf_token %}
+
+        <input name="next" type="hidden" value="{{ request.path }}">
+
+        <select name="language">
+            <option value="en">English</option>
+            <option value="hi">हिन्दी</option>
+            <option value="mr">मराठी</option>
+        </select>
+
+        <button type="submit">
+            {% trans "Change Language" %}
+        </button>
+    </form>
+
+    <div class="info">
+        <h2>{% trans "Language Demo" %}</h2>
+
+        <p>
+            {% trans "This website supports English Hindi and Marathi languages." %}
+        </p>
+
+        <p>
+            {% trans "Django Internationalization allows websites to display content in multiple languages." %}
+        </p>
+    </div>
+
+</div>
+
+</body>
+</html>
